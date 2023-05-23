@@ -13,8 +13,8 @@ _Objetivos principales:_
 
 ### Ficheros
 
-  - [CNV_predictions.py](https://github.com/albamalagon/FinalDegreeProject/blob/main/CNV_part/CNV_predictions.py): Script that predicts whether a copy number variant has been correctly called or not by taking advantage of the potential presence of small variants (SNV and INDEL) in a CNV.
-
+  - [analisis_exploratorio_MET.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_exploratorio_MET.html): Exploración de la distribución de las características y su relación con la supervivencia, así como la identificación de patrones y relaciones entre las variables, mediante pruebas estadísticas o técnicas de selección de variables. Aplicado al conjunto de datos METABRIC.
+  - [analisis_exploratorio_NKI.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_exploratorio_NKI.html): Exploración de la distribución de las características y su relación con la supervivencia, así como la identificación de patrones y relaciones entre las variables, mediante pruebas estadísticas o técnicas de selección de variables. Aplicado al conjunto de datos METABRIC.
 
 ### Uso
 
