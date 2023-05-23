@@ -14,7 +14,10 @@ _Objetivos principales:_
 ### Ficheros
 
   - [analisis_exploratorio_MET.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_exploratorio_MET.html): Exploración de la distribución de las características y su relación con la supervivencia, así como la identificación de patrones y relaciones entre las variables, mediante pruebas estadísticas o técnicas de selección de variables. Aplicado al conjunto de datos METABRIC.
-  - [analisis_exploratorio_NKI.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_exploratorio_NKI.html): Exploración de la distribución de las características y su relación con la supervivencia, así como la identificación de patrones y relaciones entre las variables, mediante pruebas estadísticas o técnicas de selección de variables. Aplicado al conjunto de datos METABRIC.
+  - [analisis_exploratorio_NKI.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_exploratorio_NKI.html): Exploración de la distribución de las características y su relación con la supervivencia, así como la identificación de patrones y relaciones entre las variables, mediante pruebas estadísticas o técnicas de selección de variables. Aplicado al conjunto de datos NKI.
+  - [analisis_supervivencia_MET.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_supervivencia_MET.html): Implementación de técnicas estadísticas enfocadas a analizar la probabilidad de supervivencia de los pacientes después del diagnóstico. Aplicado al conjunto de datos METABRIC.
+  - [analisis_supervivencia_NKI.html](https://github.com/albamalagon/TFM/blob/main/ana%CC%81lisis/analisis_supervivencia_NKI.html): Implementación de técnicas estadísticas enfocadas a analizar la probabilidad de supervivencia de los pacientes después del diagnóstico. Aplicado al conjunto de datos NKI.
+
 
 ### Uso
 
