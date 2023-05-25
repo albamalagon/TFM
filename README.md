@@ -1,4 +1,4 @@
-# Análisis predictivo de la supervivencia del cáncer de mama mediante datos clínicos y genétcos: un enfoque basado en aprendizaje automático
+# Análisis predictivo de la supervivencia del cáncer de mama mediante datos clínicos y genéticos: un enfoque basado en aprendizaje automático
 
 ## Trabajo Final de Máster - Alba Malagón Márquez
 
