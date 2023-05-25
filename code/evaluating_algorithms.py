@@ -1,6 +1,6 @@
 '''
 ALBA MALAGÓN MÁRQUEZ
-Trabajo Final de Máster: Análisis predictivo de la supervivencia del cáncer de mama mediante datos clínicos y genétcos: un enfoque basado en aprendizaje automático
+Trabajo Final de Máster: Análisis predictivo de la supervivencia del cáncer de mama mediante datos clínicos y genéticos: un enfoque basado en aprendizaje automático
 
 Script que crea e implementa varios algoritmos de aprendizaje automático para seleccionar el mejor para predecir la supervivencia del cáncer de mama.
 
