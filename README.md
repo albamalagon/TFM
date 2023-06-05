@@ -13,7 +13,7 @@ _Objetivos principales:_
 
 ### Ficheros
 
-- [Conjunto de datos](https://github.com/albamalagon/TFM/tree/main/conjunto%20de%20datos)
+- [Conjunto de datos](https://github.com/albamalagon/TFM/blob/main/conjunto%20de%20datos/elecci%C3%B3n%20conjuntos%20de%20datos.html)
   - [elección conjuntos de datos.html](https://github.com/albamalagon/TFM/blob/main/conjunto%20de%20datos/conjuntos%20de%20datos.html): Explicación de los conjuntos de datos seleccionados. Ambos están formados por un seguido de características clínicas y un conjunto de características genéticas, juntamente con una variable que informa sobre el tiempo de supervivencia del paciente y otra que informa sobre su estado vital.
   - [all_metabric_dataset.csv](https://github.com/albamalagon/TFM/blob/main/conjunto%20de%20datos/all_metabric_dataset.csv): Conjunto de datos que se encuentra disponible en el repositorio [_CBioPortal for Cancer Genomics_](https://www.cbioportal.org/).
   - [NKI.csv](https://github.com/albamalagon/TFM/blob/main/conjunto%20de%20datos/NKI.csv): Conjunto de datos descargados del sitio web [_Data World_](https://data.world/deviramanan2016/nki-breast-cancer-data).
