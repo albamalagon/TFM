@@ -29,6 +29,7 @@ _Objetivos principales:_
   - [libraries_variables.py](https://github.com/albamalagon/TFM/blob/main/c%C3%B3digo/libraries_variables.py): definición de las rutas y variables a usar durante la evaluación de los algoritmos.
   - [functions.py](https://github.com/albamalagon/TFM/blob/main/c%C3%B3digo/functions.py): definición de las funciones básicas a emplear durante la evaluación de los algoritmos.
   - [evaluating_algorithms.py](https://github.com/albamalagon/TFM/blob/main/c%C3%B3digo/evaluating_algorithms.py): evaluación de la supervivencia a 5 y 10 años del cáncer de mama empleando los algoritmos _Decision Tree_, _Random Forest_, _Artificial Neural Network_, _Logistic Regression_ y. _Gradient Boosting_.
+  - [performances_output.py](https://github.com/albamalagon/TFM/blob/main/c%C3%B3digo/performances_output.py): resultados de rendimiento específicos: características importantes, k-fold, probabilidades...
 
 - [Resultados](https://github.com/albamalagon/TFM/tree/main/resultados)
   - [importancias](https://github.com/albamalagon/TFM/tree/main/resultados/importancias): tablas que muestran la importancia de las características para cada uno de los conjuntos de datos y años de supervivencia predichos, en este caso utilizando el algoritmo _Random Forest_. 
