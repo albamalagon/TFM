@@ -35,6 +35,7 @@ from imblearn.over_sampling import RandomOverSampler
 from imblearn.over_sampling import SMOTE
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import roc_curve, auc
 from sklearn import preprocessing
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import (
@@ -358,7 +359,7 @@ elif algorithm == 'rf':
     default_model = RFD
     random_grid = {'n_estimators': n_estimators,'max_features': max_features,'max_depth': max_depth,'min_samples_split': min_samples_split,'min_samples_leaf': min_samples_leaf,'criterion' : criterion,'bootstrap': bootstrap,'class_weight': class_weight}
     classifiers = [RFD,RFR,RFG]
-    names = ['RTD','RTR','RTG']
+    names = ['RFD','RFR','RFG']
     pretty_names = ['\n####        R A N D O M     F O R E S T        ####','\n####        R A N D O M     F O R E S T    R A N D O M        ####','\n####        R A N D O M     F O R E S T    G R I D        ####']
 
 elif algorithm == 'nn':

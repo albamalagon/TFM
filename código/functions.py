@@ -41,12 +41,12 @@ def data_preprocessing(raw_df, drop_features):
         raw_df.her2_status_measured_by_snp6 = raw_df.her2_status_measured_by_snp6.replace(['GAIN','NEUTRAL','LOSS','UNDEF'],[1,0,-1,0])  
         raw_df.integrative_cluster = raw_df.integrative_cluster.replace(['4ER+','4ER-'],['4','4'])
         raw_df.overall_survival_status = raw_df.overall_survival_status.replace(['0:LIVING','1:DECEASED'],[0,1])
-        for miss_ in ['cellularity','lymph_nodes_examined_positive','mutation_count','tumor_size','neoplasm_histologic_grade']:
+        for miss_ in ['cellularity','lymph_nodes_examined_positive','mutation_count','tumor_size','neoplasm_histologic_grade','tumor_stage']:
             raw_df[miss_] = raw_df[miss_].replace(['missing'],[0])
-        for int_ in ['neoplasm_histologic_grade','cellularity','lymph_nodes_examined_positive','integrative_cluster','cohort','primary_tumor_laterality','er_status_measured_by_ihc']:
+        for int_ in ['neoplasm_histologic_grade','cellularity','lymph_nodes_examined_positive','integrative_cluster','cohort','primary_tumor_laterality','er_status_measured_by_ihc','tumor_stage','tumor_size']:
             raw_df[int_] = raw_df[int_].astype(int)
     '''
-    if dataset_name == 'NKI':
+    if dataset_name == 'NKI':  ### PCA
         # selección variables clínicas y genéticas
         clinical_df = raw_df.drop(raw_df.columns[11::], axis=1)
         data_gen = raw_df.drop(raw_df.columns[:11:], axis=1)
@@ -109,7 +109,30 @@ def data_split(datasetcoded, y, data_aug):
 
     return X_train,X_test,y_train,y_test
 
+def folds_bestmodel(x, y, model):
 
+    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=1)
+    accu_test_fold,precision_test_fold,recall_test_fold,f1score_test_fold  = [],[],[],[]
+
+    for train_index, test_index in skf.split(x, y):
+        x_train_fold, x_test_fold = x.iloc[train_index], x.iloc[test_index]
+        y_train_fold, y_test_fold = y.iloc[train_index], y.iloc[test_index]
+       
+        model_fitted = model.fit(x_train_fold, y_train_fold)
+
+        # predicción de y test
+        y_pred_fold = model_fitted.predict(x_test_fold)
+        # predicción de y train
+        y_pred_train_fold = model_fitted.predict(x_train_fold)
+
+        accu_test_fold.append(accuracy_score(y_test_fold, y_pred_fold))
+        precision_test_fold.append(precision_score(y_test_fold, y_pred_fold, average='weighted'))
+        recall_test_fold.append(recall_score(y_test_fold, y_pred_fold, average='weighted'))
+        f1score_test_fold.append(f1_score(y_test_fold, y_pred_fold, average='weighted'))
+
+    return accu_test_fold,precision_test_fold,recall_test_fold,f1score_test_fold 
+
+        
 
 def summarizing(X_train,X_test,y_train,y_test,datasetcoded,col):
     '''
@@ -211,7 +234,7 @@ def to_standard(df):
     
     return pd.DataFrame(std, index = num_df.index, columns = num_df.columns)
 
-def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_test, y_test, name, col):
+def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_test, y_test, name, col): 
 
     color_print('{}'.format(pretty_name), color=col)
     if (name != 'NND') and (name != 'NNR') and (name != 'NNG'): # considerando todos los algoritmos, excepto NN
@@ -249,12 +272,12 @@ def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_t
     # métricas de evaluación
     accu_train = accuracy_score(y_train, y_pred_train)
     accu_test = accuracy_score(y_test, y_pred)
-    precision_train = precision_score(y_train, y_pred_train, average='binary')
-    precision_test = precision_score(y_test, y_pred, average='binary')
-    recall_train = recall_score(y_train, y_pred_train, average='binary')
-    recall_test = recall_score(y_test, y_pred, average='binary')
-    f1score_train = f1_score(y_train, y_pred_train, average='binary')
-    f1score_test = f1_score(y_test, y_pred, average='binary')
+    precision_train = precision_score(y_train, y_pred_train, average='weighted')
+    precision_test = precision_score(y_test, y_pred, average='weighted')
+    recall_train = recall_score(y_train, y_pred_train, average='weighted')
+    recall_test = recall_score(y_test, y_pred, average='weighted')
+    f1score_train = f1_score(y_train, y_pred_train, average='weighted')
+    f1score_test = f1_score(y_test, y_pred, average='weighted')
 
     print('\nAccuracy on train: {} %'.format(round(accu_train*100,2)))
     print('Accuracy on test: {} %'.format(round(accu_test*100,2)))
@@ -286,14 +309,20 @@ def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_t
 
 
     if (name != 'NND') and (name != 'NNR') and (name != 'NNG'): #considering all except NN
-        plot_confusion_matrix(classifier, X_test, y_test, cmap=plt.cm.Purples, display_labels=target_names_REAL)
+        disp=plot_confusion_matrix(classifier, X_test, y_test, cmap=plt.cm.Purples, display_labels=target_names_REAL)
+        disp.ax_.xaxis.label.set_size(14)
+        disp.ax_.yaxis.label.set_size(14)
+        disp.ax_.tick_params(labelsize=12)
+        for text in disp.text_.ravel():
+            text.set_fontsize(12)  # Tamaño de fuente de los números de las celdas
+
         plt.tight_layout()
-        plt.savefig(f'{global_path}/data/grafics/plot_confusionmatrix_{dataset}_{years}_{name}_{data_aug}.png')
+        plt.savefig(f'{global_path}/data/resultados/matrices de confusión/plot_confusionmatrix_{dataset}_{years}_{name}_{data_aug}.png')
         plt.close()
 
         plot_confusion_matrix(classifier, X_test, y_test, cmap=plt.cm.Purples, display_labels=target_names_REAL,normalize='true')
         plt.tight_layout()
-        plt.savefig(f'{global_path}/data/grafics/plot_confusionmatrix_normalized_{dataset}_{years}_{name}_{data_aug}.png')
+        plt.savefig(f'{global_path}/data/resultados/matrices de confusión/plot_confusionmatrix_normalized_{dataset}_{years}_{name}_{data_aug}.png')
         plt.close()
 
         
@@ -303,7 +332,7 @@ def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_t
                                 display_labels=target_names_REAL)
         disp.plot(cmap=plt.cm.Purples)
         plt.tight_layout()
-        plt.savefig(f'{global_path}/data/grafics/plot_confusionmatrix_{dataset}_{years}_{name}_{data_aug}.png')
+        plt.savefig(f'{global_path}/data/resultados/matrices de confusión/plot_confusionmatrix_{dataset}_{years}_{name}_{data_aug}.png')
         plt.close()
         
 
@@ -335,3 +364,85 @@ def evaluating_algorithm_training(pretty_name, classifier, X_train, y_train, X_t
 
 
 
+
+def plot_feature_importances(datasetcoded, labels, plot_n, feature_importances):
+    '''
+    Function taken from 'https://github.com/WillKoehrsen/feature-selector' and adapted to this case.
+    Plots 'plot_n' most important features and the cumulative importance of features with a threshold.
+    '''
+
+    # Need to adjust number of features if greater than the features in the data
+    if plot_n > feature_importances.shape[0]:
+        plot_n = feature_importances.shape[0] - 1
+
+    # Make a horizontal bar chart of feature importances
+    plt.figure(figsize = (12, 6))
+    ax = plt.subplot()
+
+    # Need to reverse the index to plot most important on top
+    features = list(reversed(list(feature_importances.index[:plot_n])))
+    importances = feature_importances['normalized_importance'][:plot_n]
+    plt.barh(features, importances, align = 'center', edgecolor = 'k', color='lightskyblue')
+
+    # Set the yticks and labels
+    ax.set_yticks(features)
+    ax.set_yticklabels(feature_importances['feature'][:plot_n], size = 12) #, rotation=45
+    ax.tick_params(labelsize=12)
+
+    for xx,yy in zip(importances, features):
+        label = "{:.5f}".format(xx)
+        ax.annotate(label, # this is the text
+                    (xx,yy), # this is the point to label
+                    textcoords="offset points", # how to position the text
+                    xytext=(30,-4), # distance from text to points (x,y)
+                    ha='center', # horizontal alignment can be left, right or center
+                    size=12  # rotation=90,
+        )
+
+    # Plot labeling
+    plt.xlabel('Normalized Importance', size = 12)
+    plt.tight_layout()
+    plt.savefig(f'{global_path}/data/resultados/best/FI_{dataset}_{years}_{data_aug}.png')
+    plt.close()
+
+
+
+
+
+def plot_multiclass_roc(clf, X_test, y_test, n_classes, figsize=(17, 6)):
+    '''
+    plotting multiclass roc curve
+    '''
+    y_score = clf.predict_proba(X_test)
+
+    # structures
+    fpr = dict()
+    tpr = dict()
+    roc_auc = dict()
+
+    # calculate dummies once
+    #y_test_dummies = pd.get_dummies(y_test, drop_first=False).values
+    for i in range(n_classes):
+        fpr[i], tpr[i], _ = roc_curve(y_test[:, i], y_score[:, i])
+        roc_auc[i] = auc(fpr[i], tpr[i])
+
+    # roc for each class
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot([0, 1], [0, 1], 'k--')
+    ax.set_xlim([0.0, 1.0])
+    ax.set_ylim([0.0, 1.05])
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.set_title('Multiclass receiver operating characteristic')
+    for i in range(n_classes):
+        if i == 0:
+            x='survive'
+        else:
+            x='die'           
+
+        ax.plot(fpr[i], tpr[i], label='ROC curve (area = %0.2f) for label %s' % (roc_auc[i], x))
+    
+    ax.legend(loc="best")
+    ax.grid(alpha=.4)
+    plt.savefig(f'{global_path}/data/resultados/best/ROC_{dataset}_{years}_{data_aug}.png')
+    plt.close()

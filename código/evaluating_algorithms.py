@@ -60,7 +60,7 @@ f = open(f"{global_path}/data/tmp/dict_{dataset}_{years}.txt","w")
 f.write( str(ops) )
 f.close()
 
-feature_importances.to_csv(f'{global_path}/data/tmp/feature_importances_{dataset}_{years}.csv', header=True, sep="\t")
+feature_importances.to_csv(f'{global_path}/data/resultados/best/feature_importances_{dataset}_{years}.csv', header=True, sep="\t")
 
 # guardamos todas las columnas del conjunto de entrenamiento
 text_file = open(f'{global_path}/data/tmp/allCOLUMNStraining_{dataset}_{years}.txt', 'w') 
@@ -136,7 +136,7 @@ print(random.best_params_)
 # comentamos esta parte porque ya conocemos los resultados
 
 '''
-grid_search = GridSearchCV(estimator = default_model, param_grid = param_grid, cv = 2, n_jobs = -1, verbose = 2)
+grid_search = GridSearchCV(estimator = default_model, param_grid = param_grid, cv = 3, n_jobs = -1, verbose = 2)
 grid_search.fit(X_train,y_train)
 print(f'GRID SEARCH BEST PARAMETERS using {algorithm}:')
 print(grid_search.best_params_)
@@ -182,13 +182,21 @@ if algorithm == 'nn': # considerando ANN
 
 for i in range(len(classifiers)):
     output, outputWRONG, classifer_fitted = evaluating_algorithm_training(pretty_names[i], classifiers[i], X_train, y_train, X_test, y_test, names[i], col='red')
-    output.to_csv(f'{global_path}/data/resultats/output_realvspred_{dataset}_{years}_{names[i]}_{data_aug}.csv', header=True, sep="\t")
-    outputWRONG.to_csv(f'{global_path}/data/resultats/output_realvspred_WRONG_{dataset}_{years}_{names[i]}_{data_aug}.csv', header=True, sep="\t")
+    output.to_csv(f'{global_path}/data/resultados/predicciones/output_realvspred_{dataset}_{years}_{names[i]}_{data_aug}.csv', header=True, sep="\t")
+    outputWRONG.to_csv(f'{global_path}/data/resultados/predicciones/output_realvspred_WRONG_{dataset}_{years}_{names[i]}_{data_aug}.csv', header=True, sep="\t")
 
 
 
 
 
+#----------------------------------         STEP 8        ----------------------------------      
+#                                PLOTTING FEATURE IMPORTANCES 
+#------------------------------------------------------------------------------------------- 
+
+
+feature_importances = pd.read_csv(f'{global_path}/data/resultados/best/feature_importances_{dataset}_{years}.csv', sep="\t")
+feature_importances.drop(['Unnamed: 0'], axis=1, inplace=True)
+plot_feature_importances(datasetcoded, y, 10, feature_importances)
 
 
 
