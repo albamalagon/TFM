@@ -17501,6 +17501,113 @@ Correlación media: -0.014
 <p>En esta ocasión, la leyenda muestra que la correlación más alta positiva es 0.6, mientras que la negativa no llega a -0.5. Debido a que no son altísimas, decidimos mantener todas las variables genéticas.</p>
 
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># correlaciones de las variables genéticas con la variable objetivo &#39;survival_5years&#39;</span>
+<span class="n">target_cor_matrix</span> <span class="o">=</span> <span class="n">data_gen</span><span class="o">.</span><span class="n">corr</span><span class="p">()[[</span><span class="s1">&#39;survival_5years&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;survival_5years&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">target_cor_matrix</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[48]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>survival_5years</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>survival_5years</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>flt3</th>
+      <td>0.154994</td>
+    </tr>
+    <tr>
+      <th>pten</th>
+      <td>0.136082</td>
+    </tr>
+    <tr>
+      <th>dlec1</th>
+      <td>0.105983</td>
+    </tr>
+    <tr>
+      <th>pdgfrl</th>
+      <td>0.101944</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>anapc1</th>
+      <td>-0.124449</td>
+    </tr>
+    <tr>
+      <th>kras</th>
+      <td>-0.125041</td>
+    </tr>
+    <tr>
+      <th>egfr</th>
+      <td>-0.132893</td>
+    </tr>
+    <tr>
+      <th>msh6</th>
+      <td>-0.135556</td>
+    </tr>
+    <tr>
+      <th>fgfr4</th>
+      <td>-0.173732</td>
+    </tr>
+  </tbody>
+</table>
+<p>93 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -17515,7 +17622,7 @@ Correlación media: -0.014
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># creación conjunto de datos específico</span>
@@ -17535,7 +17642,7 @@ Correlación media: -0.014
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># correlaciones</span>
